@@ -64,169 +64,6 @@
     <h1 class="page-type-title"></h1>
     
     
-    <article id="post-Hive" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2023/06/09/Hive/">Hive</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2023/06/09/Hive/" class="article-date">
-  <time datetime="2023-06-09T03:29:07.077Z" itemprop="datePublished">2023-06-09</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <h1 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h1><p>本地模式部署本质上是将Hive默认的元数据存储介质由内嵌的Derby数据库替换为独立数据库，即MySQL数据库。本地模式部署Hive需要在一台虚拟机上同时安装MySQL和Hive，接下来，我们以虚拟机node2为例，使用本地模式部署Hive。</p>
-<h2 id="卸载原有MySQL组件"><a href="#卸载原有MySQL组件" class="headerlink" title="卸载原有MySQL组件"></a>卸载原有MySQL组件</h2><p>(1)查看MySQL服务状态</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status mysqld.service</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/1.png"></p>
-<p>(2)关闭MySQL服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop mysqld.service</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/2.png"></p>
-<p>(3)查找安装mysql的rpm包并卸载</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep -i mysql</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/3.png"></p>
-<p>卸载</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum remove mysql-community-libs-5.7.29-1.el7.x86_64</span><br><span class="line"></span><br><span class="line">mysql-community-common-5.7.29-1.el7.x86_64 mysql-community-client-5.7.29-1.el7.x86_64 mysql-community-server-5.7.29-1.el7.x86_64</span><br></pre></td></tr></table></figure>
-
-<p>(4)查找mysql相关目录 删除</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">find / -name mysql</span><br><span class="line"></span><br><span class="line">rm -rf /var/lib/mysql</span><br><span class="line">rm -rf /var/lib/mysql/mysql</span><br><span class="line">rm -rf /usr/share/mysql</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/4.png"></p>
-<h2 id="MySQL安装"><a href="#MySQL安装" class="headerlink" title="MySQL安装"></a>MySQL安装</h2><p>(1) 在<code>/export/server/</code>目录下创建mysql目录，并上传MySQL压缩包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /export/server/mysql </span><br><span class="line"></span><br><span class="line">sudo rz</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/5.png"></p>
-<p>(2) 解压<code>mysql-5.7.29-1.el7.x86_64.rpm-bundle.tar</code> 到上述文件夹</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mysql-5.7.29-1.el7.x86_64.rpm-bundle.tar</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/6.png"> </p>
-<p>(3) 执行安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install libaio</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/7.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh </span><br><span class="line"></span><br><span class="line">mysql-community-common-5.7.29-1.el7.x86_64.rpm mysql-community-libs-5.7.29-1.el7.x86_64.rpm mysql-community-client-5.7.29-1.el7.x86_64.rpm mysql-community-server-5.7.29-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/8.png"></p>
-<p>(5)MySQL初始化</p>
-<p>&lt;1&gt;初始化</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize</span><br></pre></td></tr></table></figure>
-
-<p>&lt;2&gt; 更改所属组</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown mysql:mysql /var/lib/mysql -R</span><br></pre></td></tr></table></figure>
-
-<p>&lt;3&gt;启动mysql</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld.service</span><br></pre></td></tr></table></figure>
-
-<p>&lt;4&gt;查看生成的临时root密码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat  /var/log/mysqld.log</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/9.png"></p>
-<p>(6)登录MySQL</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
-
-<p>这里输入在日志中生成的密码</p>
-<p>(7)更新root密码，设置为hadoop</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter user user() identified by &quot;hadoop&quot;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/10.png"></p>
-<p>(8)授权</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;hadoop&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Hive安装"><a href="#Hive安装" class="headerlink" title="Hive安装"></a>Hive安装</h2><p>(1)上传压缩包 解压 设置软链接</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf apache-hive-3.1.2-bin.tar.gz</span><br><span class="line"></span><br><span class="line">ln -s apache-hive-3.1.2-bin hive</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/11.png"></p>
-<p> <img src="/../image_1/12.png"></p>
-<p>(2)处理hive与Hadoop之间guava版本的差异</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/hive/</span><br><span class="line"></span><br><span class="line">rm -rf lib/guava-19.0.jar</span><br><span class="line"></span><br><span class="line">cp /export/server/hadoop/share/hadoop/common/lib/guava-27.0-jre.jar ./lib/</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/13.png"></p>
-<p>(3)修改配置文件</p>
-<p>Hive-env.sh</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/hive/conf</span><br><span class="line"></span><br><span class="line">mv hive-env.sh.template hive-env.sh</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim hive-env.sh</span><br><span class="line"></span><br><span class="line">export HADOOP_HOME=/export/server/hadoop</span><br><span class="line">export HIVE_CONF_DIR=/export/server/hive/conf</span><br><span class="line">export HIVE_AUX_JARS_PATH=/export/server/hive/lib</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/14.png"></p>
-<p>Hive-site.xml</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;!-- 存储元数据mysql相关配置 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;jdbc:mysql://node1:3306/hive3?createDatabaseIfNotExist=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;hadoop&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- H2S运行绑定host --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hive.server2.thrift.bind.host&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;node1&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 远程模式部署metastore metastore地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hive.metastore.uris&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;thrift://node1:9083&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 关闭元数据存储授权  --&gt; </span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hive.metastore.event.db.notification.api.auth&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/15.png"></p>
-<p>(4)上传mysql jdbc驱动到hive&#x2F;lib目录下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql-connector-java-5.1.32.jar</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/16.png"></p>
-<p>(5)在hdfs创建hive储存目录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir /tmp</span><br><span class="line">hadoop fs -mkdir -p /user/hive/warehouse</span><br><span class="line">hadoop fs -chmod g+w /tmp</span><br><span class="line">hadoop fs -chmod g+w /user/hive/warehouse</span><br></pre></td></tr></table></figure>
-
-<h2 id="Hive启动"><a href="#Hive启动" class="headerlink" title="Hive启动"></a>Hive启动</h2><p>(1)启动metastore服务</p>
-<p>&lt;1&gt; 前台启动  关闭ctrl+c</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/export/server/hive/bin/hive --service metastore</span><br></pre></td></tr></table></figure>
-
-<p>&lt;2&gt; 前台启动开启debug日志</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/export/server/hive/bin/hive --service metastore --hiveconf </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive.root.logger=DEBUG,console  </span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/17.png"></p>
-<p><img src="/../image_1/18.png"></p>
-<p>&lt;3&gt; 后台启动 进程挂起  关闭使用jps+ kill -9</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /export/server/hive/bin/hive --service metastore &amp;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_1/19.png"></p>
-<p>(2)启动hiveserver2服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /export/server/hive/bin/hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
-
-<p>【注】启动hiveserver2后，等待一段时间后再启动beeline连接，否则可能会连接不上</p>
-<p>(3)Beeline客户端连接</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/export/server/hive/bin/beeline</span><br><span class="line"></span><br><span class="line">beeline&gt; ! connect jdbc:hive2://node1:10000</span><br><span class="line">beeline&gt; root</span><br><span class="line">beeline&gt; 直接回车</span><br></pre></td></tr></table></figure>
-
-<p>【注】启动hive之前先jps检查hdfs集群是否则正常运行，否则会连接错误。</p>
-<p><img src="/../image_1/20.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Hive/" data-id="clio1gzn9000220oeblkbf8a4" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
     <article id="post-Git" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -311,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Git/" data-id="clio1gzmw000020oe47f4e73d" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Git/" data-id="clio33ivp0002twoegicz8wg4" class="article-share-link">
         Share
       </a>
       
@@ -493,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Docker/" data-id="clio1gzn5000120oe9ofobz2t" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Docker/" data-id="clio33ivn0001twoeffas0f98" class="article-share-link">
         Share
       </a>
       
@@ -576,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Spark(local)/" data-id="clio1gznc000620oehyyd27fi" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Spark(local)/" data-id="clio33ivs0006twoe1fmde0wf" class="article-share-link">
         Share
       </a>
       
@@ -682,7 +519,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Spark(stand-alone)/" data-id="clio1gznd000720oe3ni8eiav" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Spark(stand-alone)/" data-id="clio33ivr0004twoedwa033q8" class="article-share-link">
         Share
       </a>
       
@@ -751,7 +588,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Spark(HA)/" data-id="clio1gzna000320oe4zmu53ug" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Spark(HA)/" data-id="clio33ive0000twoe6bmkddld" class="article-share-link">
         Share
       </a>
       
@@ -815,7 +652,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Spark(Yarn)/" data-id="clio1gznc000520oe869f9qbi" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Spark(Yarn)/" data-id="clio33ivr0005twoe0qnl3n67" class="article-share-link">
         Share
       </a>
       
@@ -940,7 +777,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Spark(Pyspark%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A0%81%E7%8E%AF%E5%A2%83)/" data-id="clio1gznb000420oe194c62ct" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Spark(Pyspark%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A0%81%E7%8E%AF%E5%A2%83)/" data-id="clio33ivq0003twoe8mrldp47" class="article-share-link">
         Share
       </a>
       
