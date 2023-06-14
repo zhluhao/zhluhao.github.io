@@ -8,7 +8,7 @@
   
   
   <title>
-    Spark（HA）配置文档 |
+    about |
     
     路浩
   </title>
@@ -32,7 +32,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-Spark(HA)" class="article article-type-post" itemscope
+  <article id="page-" class="article article-type-page" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -41,7 +41,7 @@
       
   
   <h1 class="article-title" itemprop="name">
-    Spark（HA）配置文档
+    about
   </h1>
   
   
@@ -50,17 +50,6 @@
     
 
     
-    <div class="article-meta">
-      <a href="/2023/06/09/Spark(HA)/" class="article-date">
-  <time datetime="2023-06-09T03:28:39.523Z" itemprop="datePublished">2023-06-09</time>
-</a>
-      
-    </div>
-    
-
-    
-    
-<div class="tocbot"></div>
 
     
 
@@ -68,28 +57,17 @@
       
       
       
-        <h1 id="Spark（HA）"><a href="#Spark（HA）" class="headerlink" title="Spark（HA）"></a>Spark（HA）</h1><h2 id="Spark-StandAlone-HA-环境搭建"><a href="#Spark-StandAlone-HA-环境搭建" class="headerlink" title="Spark StandAlone HA 环境搭建"></a>Spark StandAlone HA 环境搭建</h2><p>启动Zookeeper服务和HDFS集群</p>
-<p><img src="/../image_6/1.png"></p>
-<p><code>cd /export/server/spark/conf </code>中<code>vi spark-env.sh </code>将其中的<code>SPARK_MASTER_HOST=node1</code>删除，并增加如下信息，以达到可以用到zookeeper的动态切换master功能</p>
-<p><img src="/../image_6/2.png"></p>
-<p>通过命令<code>scp spark-env.sh node2:/export/server/spark/conf/</code></p>
-<p><code>scp spark-env.sh node3:/export/server/spark/conf/</code>将<code>spark-env.sh</code>分发到node2和node3上，且若是StandAlone集群是启动中的话，通过<code>sbin/stop-all.sh</code>命令将StandAlone集群停止</p>
-<p>在node1上启动一个master进程和全部的worker进程</p>
-<p><img src="/../image_6/3.png"></p>
-<p><img src="/../image_6/4.png"></p>
-<p>在node2上启动一个备用的master进程</p>
-<p><img src="/../image_6/5.png"></p>
-<p><img src="/../image_6/6.png"></p>
-<p>使用<code>bin/spark-submit --master spark://node1:7077 /export/server/spark/examples/src/main/python/pi.py 1000</code>命令提交一个spark任务到正在运行的master上，在完成提交后使用命令kill掉node1上的master进程，并等待node2上的备用的master进程来接收并完成这个spark任务。</p>
-<p><img src="/../image_6/7.png"></p>
-<p><img src="/../image_6/8.png"></p>
-<p>测试</p>
-<p><img src="/../image_6/9.png"></p>
+        <p>​        2024届毕业生，长春建筑学院，数据科学与大数据技术，本科，2020.09-2024.06</p>
+<p>​        综合绩点:3.69   专业排名：1&#x2F;76 </p>
+<p>​        主修课程：C语言、Java语言、Python语言、Linux操作系统、web开发、数据库、数据挖掘、Hadoop、云计算、Spark、Kafka、Hive数据仓库、机器学习、深度学习、网络安全等课程。</p>
+<p>​        在大学学习生活中，我始终保持积极的心态，高标准要求自己，积极参加学校的各种比赛，丰富并提升自己。</p>
+<p>​        在学习上，积极上进，勤奋好学，目标明确，并坚持不懈，直至达到目标。正确处理学习与工作的关系，合理安排时间，提高学习效率。除了学好学校开设的公共课和专业课外，我还会通过其他途径拓展我的科学文化知识，保证各方面知识均衡发展。使自我到达“德、智、体、美、劳”全面发展；在思想上，认真学习党的思想方针和工作路线，积极向党组织靠拢，树立正确的理想信念和世界观、人生观、价值观，弘扬社会主义道德风尚，严于律己；在工作上，为了更好的锻炼自己，我竞选了班级学习委员，致力于班级的学风建设，为同学们营造良好的学习氛围，正确处理学习与工作的关系，并协助班长管理班级。</p>
+<p>​        在今后的日子里，我会不断完善和提高自我，勇于创新，时刻保持积极乐观的心态和敢于向困难挑战的精神。最后，对待生活，取舍有度，不慌不忙；对待自己，追求质量，不依附，不高攀；至于其他，有则锦上添花，无则依旧风华。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Spark(HA)/" data-id="cliv7ox1200020ooe5vwv42g1" class="article-share-link">
+      <a data-url="http://example.com/about/index.html" data-id="cliv7ox0s00000ooed2nmfjzu" class="article-share-link">
         Share
       </a>
       
@@ -99,30 +77,8 @@
 
   
   
-<nav class="article-nav">
-  
-  <a href="/2023/06/09/Spark(stand-alone)/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      Spark（stand-alone）配置文档
-      
-    </div>
-  </a>
-  
-  
-  <a href="/2023/06/09/Spark(Yarn)/" class="article-nav-link">
-    <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">Spark（Yarn）配置文档</div>
-  </a>
-  
-</nav>
-
   
 
-  
-  
-  
   
 
 </article>
@@ -144,8 +100,6 @@
     <p><ul class="list-inline">
   
   <li><i class="fe fe-smile-alt tooltip" data-tooltip="UV"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-  <li><i class="fe fe-bookmark tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_page_pv"></span></li>
   
 </ul></p>
   </div>
@@ -222,24 +176,6 @@
 
 
 
-
-
-<script src="/js/tocbot.min.js"></script>
-
-
-<script>
-  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto',
-  });
-</script>
 
 
 
