@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    
+    路浩
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Kafka-Eagle" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+
+    
+    <div class="article-meta">
+      <a href="/2023/06/17/Kafka-Eagle/" class="article-date">
+  <time datetime="2023-06-17T05:16:42.783Z" itemprop="datePublished">2023-06-17</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+        <hr>
+<h2 id="title：-在Kafka集群中部署Eagle运维监控"><a href="#title：-在Kafka集群中部署Eagle运维监控" class="headerlink" title="title： 在Kafka集群中部署Eagle运维监控"></a>title： 在Kafka集群中部署Eagle运维监控</h2><h1 id="在Kafka集群中部署Eagle运维监控"><a href="#在Kafka集群中部署Eagle运维监控" class="headerlink" title="在Kafka集群中部署Eagle运维监控"></a>在Kafka集群中部署Eagle运维监控</h1><h2 id="项目来源及背景"><a href="#项目来源及背景" class="headerlink" title="项目来源及背景"></a>项目来源及背景</h2><p>Kafka 自身并没有继承监控管理系统，因此对 Kafka 的监控管理比较不便，好在有大量的第三方监控管理系统来使用，常见的有: </p>
+<p>Kafka Eagle 、Kafka Offset Monitor 、Kafka Manager(雅虎开源的 Kafka 集群管理器) 、Kafka Web Console 、还有 JMX 接口自开发监控管理系统</p>
+<p>其中，<strong>Kafka Eagle</strong>最为流行，本文对Kafka Eagle部署，完成对Kafka集群的基本监控。</p>
+<h2 id="系统需求分析"><a href="#系统需求分析" class="headerlink" title="系统需求分析"></a>系统需求分析</h2><h3 id="安装包下载地址："><a href="#安装包下载地址：" class="headerlink" title="安装包下载地址："></a>安装包下载地址：</h3><p><a target="_blank" rel="noopener" href="https://github.com/smartloli/kafka-eagle-bin/">https://github.com/smartloli/kafka-eagle-bin/</a>		</p>
+<h3 id="上传安装包-解压-设置软连接"><a href="#上传安装包-解压-设置软连接" class="headerlink" title="上传安装包  解压  设置软连接"></a>上传安装包  解压  设置软连接</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rz -&gt;选中文件 -&gt; 确定</span><br><span class="line"></span><br><span class="line">tar -zxvf kafka-eagle-web-2.0.2-bin.tar.gz </span><br><span class="line">ln -s /export/server/kafka-eagle-web-2.0.2/ /export/server/eagle</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置环境变量：JAVA-HOME-和-KE-HOME"><a href="#配置环境变量：JAVA-HOME-和-KE-HOME" class="headerlink" title="配置环境变量：JAVA_HOME 和 KE_HOME"></a>配置环境变量：JAVA_HOME 和 KE_HOME</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile </span><br><span class="line"></span><br><span class="line">#JAVA_HOME</span><br><span class="line">export JAVA_HOME=/export/server/jdk  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin  </span><br><span class="line">#KE_HOME</span><br><span class="line">export KE_HOME=/export/server/eagle</span><br><span class="line">export PATH=$PATH:$KE_HOME/bin</span><br></pre></td></tr></table></figure>
+
+<h3 id="重新加载环境变量"><a href="#重新加载环境变量" class="headerlink" title="重新加载环境变量"></a>重新加载环境变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置-Kafka-Eagle"><a href="#配置-Kafka-Eagle" class="headerlink" title="配置 Kafka-Eagle"></a>配置 Kafka-Eagle</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/kafka-eagle-web-2.0.2/conf </span><br><span class="line"></span><br><span class="line">vi system-config.properties</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">需要更改的地方：</span><br><span class="line"></span><br><span class="line">kafka.eagle.zk.cluster.alias=cluster1</span><br><span class="line">cluster1.zk.list=node1:2181,node2:2181,node3:2181</span><br><span class="line"></span><br><span class="line">cluster1.kafka.eagle.broker.size=3</span><br><span class="line"></span><br><span class="line">kafka.eagle.url=jdbc:sqlite:/export/data/db/ke.db</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：启动前需要手动创建&#x2F;export&#x2F;data&#x2F;db目录</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /export/data/db</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动Eagle"><a href="#启动Eagle" class="headerlink" title="启动Eagle"></a>启动Eagle</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/export/server/eagle/bin/ke.sh start</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image_1-3/1.png"></p>
+<h3 id="访问本地URL"><a href="#访问本地URL" class="headerlink" title="访问本地URL"></a>访问本地URL</h3><p><a target="_blank" rel="noopener" href="http://192.168.88.161:8048/">http://192.168.88.161:8048</a></p>
+<p>Account: admin，Password: 123456</p>
+<p><img src="/../image_1-3/2.png"></p>
+<h3 id="使用Eagle"><a href="#使用Eagle" class="headerlink" title="使用Eagle"></a>使用Eagle</h3><h4 id="BScreen-总览"><a href="#BScreen-总览" class="headerlink" title="BScreen 总览"></a>BScreen 总览</h4><p><img src="/../image_1-3/3.png"></p>
+<h4 id="Topic-话题信息"><a href="#Topic-话题信息" class="headerlink" title="Topic 话题信息"></a>Topic 话题信息</h4><p>新建Topic 话题</p>
+<p><img src="/../image_1-3/4.png"></p>
+<p>查看Topic详情，包括分区</p>
+<p><img src="/../image_1-3/5.png"></p>
+<p>测试发送消息</p>
+<p><img src="/../image_1-3/6.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/17/Kafka-Eagle/" data-id="clj2hx1nl0006w8oe8xy0gs7a" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2023/06/19/Kafka-SpringBoot/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      使用SpringBoot搭建基础的Kafka流处理平台
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2023/06/16/Flume(1)/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Flume(1)</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>路浩 &copy; 2023</li>
+      
+        <li>
+          
+            <a href="https://beian.miit.gov.cn/" target="_blank"></a>
+            
+        </li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+    <p><ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt tooltip" data-tooltip="UV"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul></p>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="路浩"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/null">home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">about</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+	
+<script src="/js/love.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>

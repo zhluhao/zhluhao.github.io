@@ -64,6 +64,143 @@
     <h1 class="page-type-title"></h1>
     
     
+    <article id="post-Kafka-SpringBoot" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+  <h2 class="article-title" itemprop="name">
+    <a href="/2023/06/19/Kafka-SpringBoot/">使用SpringBoot搭建基础的Kafka流处理平台</a>
+  </h2>
+  
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2023/06/19/Kafka-SpringBoot/" class="article-date">
+  <time datetime="2023-06-19T06:02:49.521Z" itemprop="datePublished">2023-06-19</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+        <h1 id="使用SpringBoot搭建基础的Kafka流处理平台"><a href="#使用SpringBoot搭建基础的Kafka流处理平台" class="headerlink" title="使用SpringBoot搭建基础的Kafka流处理平台"></a>使用SpringBoot搭建基础的Kafka流处理平台</h1><h2 id="项目来源及背景"><a href="#项目来源及背景" class="headerlink" title="项目来源及背景"></a>项目来源及背景</h2><p>Kafka是目前主流的流处理平台，同时作为消息队列家族的一员，其高吞吐性作为很多场景下的主流选择。同时作为流处理平台，在大数据开发中，作为黏合剂串联各个系统。在本项目中，可以发布或订阅数据流处理系统，类似于消息队列数据流存储的平台，并且具备错误容忍当数据产生时就对数据进行处理。</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><h3 id="通过Github同步kafka-rgzn-Training仓库到本地"><a href="#通过Github同步kafka-rgzn-Training仓库到本地" class="headerlink" title="通过Github同步kafka_rgzn_Training仓库到本地"></a>通过Github同步kafka_rgzn_Training仓库到本地</h3><p><a target="_blank" rel="noopener" href="https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training">https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training</a></p>
+<p><img src="/../image_2-3/1.png"></p>
+<h3 id="调试并启动项目"><a href="#调试并启动项目" class="headerlink" title="调试并启动项目"></a>调试并启动项目</h3><p><img src="/../image_2-3/2.png"></p>
+<p>调试时，在KafkaDemoApplication文件内启动项目，使用postman等Http接口调试工具对项目进行测试</p>
+<p>测试时，使用get测试**<a target="_blank" rel="noopener" href="http://localhost:8080/kafka/send"><strong>http://localhost:8080/kafka/index</strong></a>**接口是否正常、发送相应的json数据。Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：</p>
+<p><img src="/../image_2-3/3.png"></p>
+<p>测试时，使用post方式向**<a target="_blank" rel="noopener" href="http://localhost:8080/kafka/send"><strong>http://localhost:8080/kafka/send</strong></a>**接口发送json数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;title&quot;:&quot;bigdata19-kafka&quot;,&quot;body&quot;:&quot;2023-06-19，张路浩（204800230）的kafka实训&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：</p>
+<p><img src="/../image_2-3/4.png"></p>
+<p><img src="/../image_2-3/5.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/19/Kafka-SpringBoot/" data-id="clj2hx1no0008w8oehsbg5c8t" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Kafka-Eagle" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+
+    
+    <div class="article-meta">
+      <a href="/2023/06/17/Kafka-Eagle/" class="article-date">
+  <time datetime="2023-06-17T05:16:42.783Z" itemprop="datePublished">2023-06-17</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+        <hr>
+<h2 id="title：-在Kafka集群中部署Eagle运维监控"><a href="#title：-在Kafka集群中部署Eagle运维监控" class="headerlink" title="title： 在Kafka集群中部署Eagle运维监控"></a>title： 在Kafka集群中部署Eagle运维监控</h2><h1 id="在Kafka集群中部署Eagle运维监控"><a href="#在Kafka集群中部署Eagle运维监控" class="headerlink" title="在Kafka集群中部署Eagle运维监控"></a>在Kafka集群中部署Eagle运维监控</h1><h2 id="项目来源及背景"><a href="#项目来源及背景" class="headerlink" title="项目来源及背景"></a>项目来源及背景</h2><p>Kafka 自身并没有继承监控管理系统，因此对 Kafka 的监控管理比较不便，好在有大量的第三方监控管理系统来使用，常见的有: </p>
+<p>Kafka Eagle 、Kafka Offset Monitor 、Kafka Manager(雅虎开源的 Kafka 集群管理器) 、Kafka Web Console 、还有 JMX 接口自开发监控管理系统</p>
+<p>其中，<strong>Kafka Eagle</strong>最为流行，本文对Kafka Eagle部署，完成对Kafka集群的基本监控。</p>
+<h2 id="系统需求分析"><a href="#系统需求分析" class="headerlink" title="系统需求分析"></a>系统需求分析</h2><h3 id="安装包下载地址："><a href="#安装包下载地址：" class="headerlink" title="安装包下载地址："></a>安装包下载地址：</h3><p><a target="_blank" rel="noopener" href="https://github.com/smartloli/kafka-eagle-bin/">https://github.com/smartloli/kafka-eagle-bin/</a>		</p>
+<h3 id="上传安装包-解压-设置软连接"><a href="#上传安装包-解压-设置软连接" class="headerlink" title="上传安装包  解压  设置软连接"></a>上传安装包  解压  设置软连接</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rz -&gt;选中文件 -&gt; 确定</span><br><span class="line"></span><br><span class="line">tar -zxvf kafka-eagle-web-2.0.2-bin.tar.gz </span><br><span class="line">ln -s /export/server/kafka-eagle-web-2.0.2/ /export/server/eagle</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置环境变量：JAVA-HOME-和-KE-HOME"><a href="#配置环境变量：JAVA-HOME-和-KE-HOME" class="headerlink" title="配置环境变量：JAVA_HOME 和 KE_HOME"></a>配置环境变量：JAVA_HOME 和 KE_HOME</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile </span><br><span class="line"></span><br><span class="line">#JAVA_HOME</span><br><span class="line">export JAVA_HOME=/export/server/jdk  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin  </span><br><span class="line">#KE_HOME</span><br><span class="line">export KE_HOME=/export/server/eagle</span><br><span class="line">export PATH=$PATH:$KE_HOME/bin</span><br></pre></td></tr></table></figure>
+
+<h3 id="重新加载环境变量"><a href="#重新加载环境变量" class="headerlink" title="重新加载环境变量"></a>重新加载环境变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置-Kafka-Eagle"><a href="#配置-Kafka-Eagle" class="headerlink" title="配置 Kafka-Eagle"></a>配置 Kafka-Eagle</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/kafka-eagle-web-2.0.2/conf </span><br><span class="line"></span><br><span class="line">vi system-config.properties</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">需要更改的地方：</span><br><span class="line"></span><br><span class="line">kafka.eagle.zk.cluster.alias=cluster1</span><br><span class="line">cluster1.zk.list=node1:2181,node2:2181,node3:2181</span><br><span class="line"></span><br><span class="line">cluster1.kafka.eagle.broker.size=3</span><br><span class="line"></span><br><span class="line">kafka.eagle.url=jdbc:sqlite:/export/data/db/ke.db</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：启动前需要手动创建&#x2F;export&#x2F;data&#x2F;db目录</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /export/data/db</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动Eagle"><a href="#启动Eagle" class="headerlink" title="启动Eagle"></a>启动Eagle</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/export/server/eagle/bin/ke.sh start</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image_1-3/1.png"></p>
+<h3 id="访问本地URL"><a href="#访问本地URL" class="headerlink" title="访问本地URL"></a>访问本地URL</h3><p><a target="_blank" rel="noopener" href="http://192.168.88.161:8048/">http://192.168.88.161:8048</a></p>
+<p>Account: admin，Password: 123456</p>
+<p><img src="/../image_1-3/2.png"></p>
+<h3 id="使用Eagle"><a href="#使用Eagle" class="headerlink" title="使用Eagle"></a>使用Eagle</h3><h4 id="BScreen-总览"><a href="#BScreen-总览" class="headerlink" title="BScreen 总览"></a>BScreen 总览</h4><p><img src="/../image_1-3/3.png"></p>
+<h4 id="Topic-话题信息"><a href="#Topic-话题信息" class="headerlink" title="Topic 话题信息"></a>Topic 话题信息</h4><p>新建Topic 话题</p>
+<p><img src="/../image_1-3/4.png"></p>
+<p>查看Topic详情，包括分区</p>
+<p><img src="/../image_1-3/5.png"></p>
+<p>测试发送消息</p>
+<p><img src="/../image_1-3/6.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/17/Kafka-Eagle/" data-id="clj2hx1nl0006w8oe8xy0gs7a" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
     <article id="post-Flume(1)" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -160,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/16/Flume(1)/" data-id="cliy9g3710002jooe9mvcbiaw" class="article-share-link">
+      <a data-url="http://example.com/2023/06/16/Flume(1)/" data-id="clj2hx1n90000w8oe40pwdsm9" class="article-share-link">
         Share
       </a>
       
@@ -241,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/16/Flume(2)/" data-id="cliy9g3730004jooed0oe5yls" class="article-share-link">
+      <a data-url="http://example.com/2023/06/16/Flume(2)/" data-id="clj2hx1nl0005w8oecfob3c8k" class="article-share-link">
         Share
       </a>
       
@@ -326,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/16/Flume(3)/" data-id="cliy9g3720003jooe4cld143f" class="article-share-link">
+      <a data-url="http://example.com/2023/06/16/Flume(3)/" data-id="clj2hx1nj0003w8oee8dwey79" class="article-share-link">
         Share
       </a>
       
@@ -414,7 +551,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/16/Sqoop(1)/" data-id="cliy9g378000djooe2vptatil" class="article-share-link">
+      <a data-url="http://example.com/2023/06/16/Sqoop(1)/" data-id="clj2hx1ns000ew8oe4oj9ef1x" class="article-share-link">
         Share
       </a>
       
@@ -746,7 +883,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/16/Sqoop(2)/" data-id="cliy9g379000fjooecoxi1st2" class="article-share-link">
+      <a data-url="http://example.com/2023/06/16/Sqoop(2)/" data-id="clj2hx1nt000hw8oehslcanvz" class="article-share-link">
         Share
       </a>
       
@@ -860,7 +997,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/16/Zookeeper/" data-id="cliy9g378000ejooeftw2eu7u" class="article-share-link">
+      <a data-url="http://example.com/2023/06/16/Zookeeper/" data-id="clj2hx1nt000gw8oeckwp37ci" class="article-share-link">
         Share
       </a>
       
@@ -1017,7 +1154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/16/Kafka/" data-id="cliy9g3740007jooe46jg1yam" class="article-share-link">
+      <a data-url="http://example.com/2023/06/16/Kafka/" data-id="clj2hx1np0009w8oe1qcr80h6" class="article-share-link">
         Share
       </a>
       
@@ -1180,287 +1317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Hive/" data-id="cliy9g3740006jooef6v8dz04" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-Git" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2023/06/09/Git/">Git</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2023/06/09/Git/" class="article-date">
-  <time datetime="2023-06-09T03:29:03.218Z" itemprop="datePublished">2023-06-09</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="Git-的基本使用01-TortoiseGit-操作本地仓库"><a href="#Git-的基本使用01-TortoiseGit-操作本地仓库" class="headerlink" title="Git 的基本使用01-TortoiseGit 操作本地仓库"></a>Git 的基本使用01-TortoiseGit 操作本地仓库</h2><p>1.初始化仓库</p>
-<p>​        创建Git版本库创建完毕仓库,我们发现,此时我们创建的文件夹下有一个.git 文件已经生成了，并且仓库文件夹上多了一个 绿色图标。</p>
-<p>2.添加文件</p>
-<p>​        在仓库中新建一个文件，选中新建的文件–&gt;右键–&gt; TortoiseGit–&gt; 添加，此时我们看到文件夹上多了一个 “加号”。</p>
-<p>3.提交文件至本地文件</p>
-<p>选中文件，右键git提交<img src="/../image_2/1.png"></p>
-<p>4.修改文件，与再次提交文件</p>
-<p>​        当我们修改文件以后,文件上多了一个红色感叹号,表示我们上次提交后该文件被修改过提交后文件图标又变成绿色<img src="/../image_2/2.png"></p>
-<p>5.文件状态讲解</p>
-<p>6.修改文件，不提交和上一个版本比较差异</p>
-<p>修改文件,此时不要提交选中文件–&gt;右键–&gt; TortoiseGit–&gt; 比较差异</p>
-<p><img src="/../image_2/3.png"></p>
-<p>7.查看提交历史记录</p>
-<p>选中文件右键–&gt; TortoiseGit–&gt; 显示日志，此时我们可以看到所有的历史提交记录<img src="/../image_2/4.png"></p>
-<p>8.回退至历史版本</p>
-<p>右键–&gt; TortoiseGit–&gt; 显示日志，选中某个版本–&gt; 进行如下操作<img src="/../image_2/5.png"></p>
-<p>9.文件删除</p>
-<p>本地删除与恢复<img src="/../image_2/6.png"></p>
-<h2 id="Git-的基本使用02-TortoiseGit-操作本地仓库-分支"><a href="#Git-的基本使用02-TortoiseGit-操作本地仓库-分支" class="headerlink" title="Git 的基本使用02-TortoiseGit 操作本地仓库(分支)"></a>Git 的基本使用02-TortoiseGit 操作本地仓库(分支)</h2><p>1.创建分支</p>
-<p>到现在为止,我们一直使用的时主分支(master)在主分支上操作创建分支<img src="/../image_2/7.png"></p>
-<p>2.查看分支</p>
-<p>查看版本分支图,此时我们看到有两个分支<img src="/../image_2/8.png"></p>
-<p>3.切换分支</p>
-<p><img src="/../image_2/9.png"></p>
-<p>4.合并</p>
-<p>切换到 主版本，右键 合并即可将需求1 写的代码合并至主分支</p>
-<p><img src="/../image_2/10.png"></p>
-<p>5.删除分支</p>
-<p><img src="/../image_2/11.png"></p>
-<h2 id="tag标签"><a href="#tag标签" class="headerlink" title="tag标签"></a>tag标签</h2><p>1.标签的创建</p>
-<p><img src="/../image_2/12.png"></p>
-<p>2.标签的切换与删除</p>
-<p><img src="/../image_2/13.png"></p>
-<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>1.创建远程仓库</p>
-<p><img src="/../image_2/14.png"></p>
-<p>  <img src="/../image_2/15.png"></p>
-<p>2.把本地代码推送到云端</p>
-<p><img src="/../image_2/16.png"></p>
-<p>3.从远程仓库克隆代码</p>
-<p><img src="/../image_2/17.png"></p>
-<p>4.连接成功</p>
-<p><img src="/../image_2/18.png"></p>
-<p>5.推送本地仓库内容至远程仓库</p>
-<p><img src="/../image_2/19.png"></p>
-<p>6.克隆远程仓库到本地</p>
-<p><img src="/../image_2/20.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Git/" data-id="cliy9g3730005jooegsmj7c2a" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-Docker" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2023/06/09/Docker/">Docker</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2023/06/09/Docker/" class="article-date">
-  <time datetime="2023-06-09T03:29:00.607Z" itemprop="datePublished">2023-06-09</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>1.在安装docker之前，先初始化机器环境，如果之前安装过旧版本的docker，应该先使用命令进行卸载</p>
-<p>2.进行yum源配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"></span><br><span class="line">wget -O/etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">wget -o/etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line"></span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/1.png"></p>
-<p>3.安装docker，首先需要虚拟机联网，安装yum工具</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils \device-mapper-persistent-data \</span><br><span class="line">lvm2--skip-broken</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/2.png"></p>
-<p>4.配置网卡转发</p>
-<p>（1）写入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /etc/sysctl.d/docker.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">net.ipv4.conf.default.rp_filter = 0</span><br><span class="line">net.ipv4.conf.all.rp_filter = 0</span><br><span class="line">net.ipv4.ip_forward=1</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<p>（2）重新加载内核参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe br_netfilter</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p /etc/sysctl.d/docker.conf</span><br></pre></td></tr></table></figure>
-
-<p>5.利用yum进行docker安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl-o/etc/yum.repos.d/docker-ce.repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line">cur-o/etc/yum.repos.d/Centos-7.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/3.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#更新yum缓存</span><br><span class="line">yum clean al1 &amp;&amp; yum makecache</span><br><span class="line"></span><br><span class="line">#可以直接yum安装docker了</span><br><span class="line">## 查看源中可用版本</span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line">## yum安装</span><br><span class="line">yum install docker-ce -y</span><br><span class="line">##查看docker版本，验证是否验证成功</span><br><span class="line">docker -v</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/4.png"></p>
-<p>6.配置镜像加速器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/docker</span><br><span class="line">touch /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">	&quot;registry-mirrors&quot; : [</span><br><span class="line">	&quot;https://8xpk5wnt.mirror.aliyuncs.com&quot;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>7.启动docker</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#启动docker前，一定要关闭防火墙！！</span><br><span class="line"># 关闭</span><br><span class="line">systemctl stop firewalld</span><br><span class="line"># 禁止开机启动防火墙</span><br><span class="line">systemctl disable firewalld</span><br><span class="line"></span><br><span class="line">## 查看docker信息</span><br><span class="line">docker info</span><br><span class="line">docker ps</span><br><span class="line">docker images</span><br><span class="line">docker version</span><br><span class="line"></span><br><span class="line">## docker-client</span><br><span class="line">which docker</span><br><span class="line">## docker daemon</span><br><span class="line">ps aux |grep docker</span><br><span class="line">## containerd</span><br><span class="line">ps aux|grep containerd</span><br><span class="line">systemctl status containerd </span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/5.png"></p>
-<p>7.docker初体验</p>
-<p>（1）查看本地的docker镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image ls 或 docker images</span><br></pre></td></tr></table></figure>
-
-<p>（2）可选择删除旧版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi 镜像id</span><br></pre></td></tr></table></figure>
-
-<p>（3）搜索一下远程仓库中的镜像文件是否存在</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search nginx</span><br></pre></td></tr></table></figure>
-
-<p>（4）拉取，下载镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docerk pull nginx </span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/6.png"></p>
-<p>（5）查看镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images </span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/7.png"></p>
-<p>（6）运行镜像，运行出具体内容，在容器中就跑着一个nginx服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run 参数 镜像的名字/id</span><br><span class="line">-d 后台运行容器</span><br><span class="line">-p 80:80 端口映射，宿主机端口：容器内端口，访问宿主机的80端口，也就访问到容器中的80端口</span><br><span class="line"></span><br><span class="line">docker run -d -p 80:80 nginx</span><br><span class="line">会返回一个容器的id</span><br></pre></td></tr></table></figure>
-
-<p>（7）查看容器是否在运行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/8.png"></p>
-<p>（8）访问网站</p>
-<p><code>192.168.88.161:80</code></p>
-<p><img src="/../image_3/9.png"></p>
-<h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p>获取镜像，镜像托管仓库，好比yum源一样. 默认的docker仓库是，dockerhub ，有大量的优质的镜像，以及用户自己上传的镜像 centos容器 vim nginx 。提交为镜像，上传到dockehub</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker search centos</span><br><span class="line"></span><br><span class="line">##我们在获取redis镜像的时候，发现下载了多行信息，最终仅得到了一个完整的镜像文件</span><br><span class="line">[root@node3 ~]# docker pull redis</span><br><span class="line">[root@node3 ~]# docker images</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/10.png"></p>
-<p><img src="/../image_3/11.png"></p>
-<h3 id="查看本地的镜像文件"><a href="#查看本地的镜像文件" class="headerlink" title="查看本地的镜像文件"></a>查看本地的镜像文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images </span><br><span class="line"></span><br><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/12.png"></p>
-<h3 id="下载docker镜像"><a href="#下载docker镜像" class="headerlink" title="下载docker镜像"></a>下载docker镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos # 默认的是 centos:latest</span><br><span class="line"></span><br><span class="line">docker pull centos:7.8.2003</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/13.png"></p>
-<h3 id="查看docker镜像的存储路径"><a href="#查看docker镜像的存储路径" class="headerlink" title="查看docker镜像的存储路径"></a>查看docker镜像的存储路径</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker info |grep Root</span><br><span class="line"></span><br><span class="line">#Docker Root Dir: /var/lib/docker</span><br><span class="line">#具体位置</span><br><span class="line">ls /var/lib/docker/image/overlay2/imagedb/content/sha256</span><br><span class="line"></span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/14.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">记录 镜像 和容器的配置关系</span><br><span class="line"># 使用不同的镜像，生成容器# -it 开启一个交互式的终端--rm 容器退出时删除该容器</span><br><span class="line">#再运行一个7.8centos</span><br><span class="line">docker run -it --rm centos bash</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/15.png"></p>
-<h3 id="查看所有镜像、具体镜像"><a href="#查看所有镜像、具体镜像" class="headerlink" title="查看所有镜像、具体镜像"></a>查看所有镜像、具体镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">docker images 镜像名</span><br></pre></td></tr></table></figure>
-
-<h3 id="指定tag查看"><a href="#指定tag查看" class="headerlink" title="指定tag查看"></a>指定tag查看</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images centos:7.8.2003</span><br></pre></td></tr></table></figure>
-
-<h3 id="列出镜像id"><a href="#列出镜像id" class="headerlink" title="列出镜像id"></a>列出镜像id</h3><p>-q –quiet 列出id</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images -q</span><br></pre></td></tr></table></figure>
-
-<h3 id="格式化显示镜像"><a href="#格式化显示镜像" class="headerlink" title="格式化显示镜像"></a>格式化显示镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 这是docker的模板语言，--format</span><br><span class="line"></span><br><span class="line">docker images --format &quot;&#123;&#123;.ID&#125;&#125;--&#123;&#123;.Repository&#125;&#125;&quot;</span><br><span class="line"></span><br><span class="line">[root@node3 ~]# docker images --format &quot;&#123;&#123;.ID&#125;&#125;--&#123;&#123;.Repository&#125;&#125;&quot;</span><br><span class="line"></span><br><span class="line">605c77e624dd--nginx</span><br><span class="line">7614ae9453d1--redis</span><br><span class="line">5d9483f9a7b2—mysql</span><br></pre></td></tr></table></figure>
-
-<p>运行容器，且进入容器内，且在容器内执行某个命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# docker run -it centos:7.8.2003 sh</span><br><span class="line">sh-4.2#</span><br><span class="line">sh-4.2#</span><br><span class="line">sh-4.2# cat /etc/redhat-release</span><br><span class="line">Centos Linux release 7.8.2003 (Core)</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/16.png"></p>
-<p>开启一个容器，让它帮你运行某个程序，属于前台运行，会卡住一个终端</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# docker run centos:7.8.2003 ping baidu.com</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/17.png"></p>
-<p>运行一个活着的容器，docker ps可以看到的容器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># -d 参数，让容器在后台跑着 (针对宿主机而言)</span><br><span class="line"></span><br><span class="line"># 返回容器id</span><br><span class="line">docker run -d centos:7.8.2003 ping baidu.com</span><br><span class="line"></span><br><span class="line">docker run -d --rm --name pythonav centos:7.8.2003 pingpythonav.cn</span><br><span class="line"></span><br><span class="line">docke rps</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/18.png"></p>
-<p><img src="/../image_3/19.png"></p>
-<p><img src="/../image_3/20.png"></p>
-<p>查看容器日志的玩法，刷新日志、查看最后五条</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># docker logs -f 容器id</span><br><span class="line"></span><br><span class="line">docker logs -f f2598cb26363</span><br><span class="line">docker logs f2598cb26363 | tail -5</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/21.png"></p>
-<p><img src="/../image_3/22.png"></p>
-<p>查看容器的详细信息，用于高级的调试</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container inspect 容器id</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/23.png"></p>
-<p>容器的端口映射</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 后台运行nginx容器，且起个名字，且端口映射宿主机的80端口，访问到容器内的80端口</span><br><span class="line"></span><br><span class="line">docker run -d --name bigdata_nginx -p 85:80 nginx</span><br><span class="line"></span><br><span class="line"># 查看容器</span><br><span class="line">[root@yc_docker81 ~]# docker ps</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/24.png"></p>
-<p>查看容器的端口转发情况</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker port 容器id</span><br><span class="line"></span><br><span class="line"># docker port 2e73fac44507</span><br><span class="line"></span><br><span class="line">80/tcp -&gt; 0.0.0.0:85</span><br><span class="line">80/tcp -&gt; :::85</span><br></pre></td></tr></table></figure>
-
-<p>随机端口映射 -P 随机访问一个宿主机的空闲端口，映射到容器内打开的端口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name bigdata_nginx_random -P nginx</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/25.png"></p>
-<p><img src="/../image_3/26.png"></p>
-<p>创建并运行nginx容器的命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name containerName -p 80:80 -d nginx</span><br></pre></td></tr></table></figure>
-
-<p>进入容器，进入我们刚刚创建的nginx容器的命令为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 25866bdfa0e3 bash   //25866bdfa0e3是容器的id</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../image_3/27.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Docker/" data-id="cliy9g36x0001jooe2c3vbey0" class="article-share-link">
+      <a data-url="http://example.com/2023/06/09/Hive/" data-id="clj2hx1no0007w8oe4g7o2di8" class="article-share-link">
         Share
       </a>
       

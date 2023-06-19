@@ -8,7 +8,7 @@
   
   
   <title>
-    Spark（HA）配置文档 |
+    使用SpringBoot搭建基础的Kafka流处理平台 |
     
     路浩
   </title>
@@ -32,7 +32,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-Spark(HA)" class="article article-type-post" itemscope
+  <article id="post-Kafka-SpringBoot" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -41,7 +41,7 @@
       
   
   <h1 class="article-title" itemprop="name">
-    Spark（HA）配置文档
+    使用SpringBoot搭建基础的Kafka流处理平台
   </h1>
   
   
@@ -51,8 +51,8 @@
 
     
     <div class="article-meta">
-      <a href="/2023/06/09/Spark(HA)/" class="article-date">
-  <time datetime="2023-06-09T03:28:39.523Z" itemprop="datePublished">2023-06-09</time>
+      <a href="/2023/06/19/Kafka-SpringBoot/" class="article-date">
+  <time datetime="2023-06-19T06:02:49.521Z" itemprop="datePublished">2023-06-19</time>
 </a>
       
     </div>
@@ -68,28 +68,24 @@
       
       
       
-        <h1 id="Spark（HA）"><a href="#Spark（HA）" class="headerlink" title="Spark（HA）"></a>Spark（HA）</h1><h2 id="Spark-StandAlone-HA-环境搭建"><a href="#Spark-StandAlone-HA-环境搭建" class="headerlink" title="Spark StandAlone HA 环境搭建"></a>Spark StandAlone HA 环境搭建</h2><p>启动Zookeeper服务和HDFS集群</p>
-<p><img src="/../image_6/1.png"></p>
-<p><code>cd /export/server/spark/conf </code>中<code>vi spark-env.sh </code>将其中的<code>SPARK_MASTER_HOST=node1</code>删除，并增加如下信息，以达到可以用到zookeeper的动态切换master功能</p>
-<p><img src="/../image_6/2.png"></p>
-<p>通过命令<code>scp spark-env.sh node2:/export/server/spark/conf/</code></p>
-<p><code>scp spark-env.sh node3:/export/server/spark/conf/</code>将<code>spark-env.sh</code>分发到node2和node3上，且若是StandAlone集群是启动中的话，通过<code>sbin/stop-all.sh</code>命令将StandAlone集群停止</p>
-<p>在node1上启动一个master进程和全部的worker进程</p>
-<p><img src="/../image_6/3.png"></p>
-<p><img src="/../image_6/4.png"></p>
-<p>在node2上启动一个备用的master进程</p>
-<p><img src="/../image_6/5.png"></p>
-<p><img src="/../image_6/6.png"></p>
-<p>使用<code>bin/spark-submit --master spark://node1:7077 /export/server/spark/examples/src/main/python/pi.py 1000</code>命令提交一个spark任务到正在运行的master上，在完成提交后使用命令kill掉node1上的master进程，并等待node2上的备用的master进程来接收并完成这个spark任务。</p>
-<p><img src="/../image_6/7.png"></p>
-<p><img src="/../image_6/8.png"></p>
-<p>测试</p>
-<p><img src="/../image_6/9.png"></p>
+        <h1 id="使用SpringBoot搭建基础的Kafka流处理平台"><a href="#使用SpringBoot搭建基础的Kafka流处理平台" class="headerlink" title="使用SpringBoot搭建基础的Kafka流处理平台"></a>使用SpringBoot搭建基础的Kafka流处理平台</h1><h2 id="项目来源及背景"><a href="#项目来源及背景" class="headerlink" title="项目来源及背景"></a>项目来源及背景</h2><p>Kafka是目前主流的流处理平台，同时作为消息队列家族的一员，其高吞吐性作为很多场景下的主流选择。同时作为流处理平台，在大数据开发中，作为黏合剂串联各个系统。在本项目中，可以发布或订阅数据流处理系统，类似于消息队列数据流存储的平台，并且具备错误容忍当数据产生时就对数据进行处理。</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><h3 id="通过Github同步kafka-rgzn-Training仓库到本地"><a href="#通过Github同步kafka-rgzn-Training仓库到本地" class="headerlink" title="通过Github同步kafka_rgzn_Training仓库到本地"></a>通过Github同步kafka_rgzn_Training仓库到本地</h3><p><a target="_blank" rel="noopener" href="https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training">https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training</a></p>
+<p><img src="/../image_2-3/1.png"></p>
+<h3 id="调试并启动项目"><a href="#调试并启动项目" class="headerlink" title="调试并启动项目"></a>调试并启动项目</h3><p><img src="/../image_2-3/2.png"></p>
+<p>调试时，在KafkaDemoApplication文件内启动项目，使用postman等Http接口调试工具对项目进行测试</p>
+<p>测试时，使用get测试**<a target="_blank" rel="noopener" href="http://localhost:8080/kafka/send"><strong>http://localhost:8080/kafka/index</strong></a>**接口是否正常、发送相应的json数据。Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：</p>
+<p><img src="/../image_2-3/3.png"></p>
+<p>测试时，使用post方式向**<a target="_blank" rel="noopener" href="http://localhost:8080/kafka/send"><strong>http://localhost:8080/kafka/send</strong></a>**接口发送json数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;title&quot;:&quot;bigdata19-kafka&quot;,&quot;body&quot;:&quot;2023-06-19，张路浩（204800230）的kafka实训&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：</p>
+<p><img src="/../image_2-3/4.png"></p>
+<p><img src="/../image_2-3/5.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/09/Spark(HA)/" data-id="clj2hx1np000aw8oee7yegosn" class="article-share-link">
+      <a data-url="http://example.com/2023/06/19/Kafka-SpringBoot/" data-id="clj2hx1no0008w8oehsbg5c8t" class="article-share-link">
         Share
       </a>
       
@@ -101,19 +97,10 @@
   
 <nav class="article-nav">
   
-  <a href="/2023/06/09/Spark(stand-alone)/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      Spark（stand-alone）配置文档
-      
-    </div>
-  </a>
   
-  
-  <a href="/2023/06/09/Spark(Yarn)/" class="article-nav-link">
+  <a href="/2023/06/17/Kafka-Eagle/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">Spark（Yarn）配置文档</div>
+    <div class="article-nav-title"></div>
   </a>
   
 </nav>
